@@ -20,10 +20,10 @@ export default function HomePage() {
   const proxyInitialized = useRef(false);
 
   useEffect(() => {
-    const update = (time) => {
+    const tickerUpdate = (time) => {
       lenisRef.current?.lenis?.raf(time * 1000);
     };
-    gsap.ticker.add(update);
+    gsap.ticker.add(tickerUpdate);
 
     let rafId;
     let cleanupLenisIntegration = null;
@@ -117,17 +117,18 @@ export default function HomePage() {
   };
 
   return (
-    <div>
-      <ReactLenis root ref={lenisRef} options={{ autoRaf: false, lerp: 0.08 }} />
-      <WelcomingLoader />
-      <FullscreenMenu onNavigate={handleNavigation} />
-      <main>
-        <HeroExplosion />
-        <WhySection />
-        <WhatSection />
-        <WhoSection />
-        <JoinForm />
-      </main>
-    </div>
+    <ReactLenis root ref={lenisRef} options={{ autoRaf: false, lerp: 0.08 }}>
+      <div>
+        <WelcomingLoader />
+        <FullscreenMenu onNavigate={handleNavigation} />
+        <main>
+          <HeroExplosion />
+          <WhySection />
+          <WhatSection />
+          <WhoSection />
+          <JoinForm />
+        </main>
+      </div>
+    </ReactLenis>
   );
 }
