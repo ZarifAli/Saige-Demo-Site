@@ -1,0 +1,23 @@
+{
+  "name": "saige-launch-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/swc-darwin-arm64": "^15.1.1-canary.6",
+    "gsap": "^3.12.5",
+    "lenis": "^1.2.3",
+    "next": "^14.2.32",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.5"
+  }
+}
