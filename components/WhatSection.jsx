@@ -32,7 +32,7 @@ const LOCATIONS = [
 export default function WhatSection() {
   const sectionRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
@@ -49,21 +49,9 @@ export default function WhatSection() {
         const { isMobile, isMobileLandscape, isTablet } = context.conditions;
 
         const gsapCtx = gsap.context(() => {
-          const wrappers = section.hasAttribute("data-horizontal-scroll-wrap")
-            ? [section]
-            : [];
-
-          const nestedWrappers = gsap.utils.toArray(
-            "[data-horizontal-scroll-wrap]",
-            section
+          const wrappers = Array.from(
+            section.querySelectorAll("[data-horizontal-scroll-wrap]")
           );
-
-          nestedWrappers.forEach((wrap) => {
-            if (!wrappers.includes(wrap)) {
-              wrappers.push(wrap);
-            }
-          });
-
           if (!wrappers.length) return;
 
           wrappers.forEach((wrap) => {
@@ -95,8 +83,6 @@ export default function WhatSection() {
               },
             });
           });
-
-          ScrollTrigger.refresh();
         }, section);
 
         return () => gsapCtx.revert();

@@ -25,8 +25,6 @@ export default function HomePage() {
     };
     gsap.ticker.add(tickerUpdate);
 
-    const originalScroller = ScrollTrigger.defaults().scroller;
-
     let rafId;
     let cleanupLenisIntegration = null;
 
@@ -37,13 +35,11 @@ export default function HomePage() {
         return;
       }
 
-      let lenisScroll = lenis.scroll ?? 0;
+      let lenisScroll = 0;
 
       const handleLenisScroll = (event) => {
         if (event && typeof event.scroll === "number") {
           lenisScroll = event.scroll;
-        } else if (typeof lenis.scroll === "number") {
-          lenisScroll = lenis.scroll;
         } else if (typeof window !== "undefined") {
           lenisScroll = window.scrollY;
         }
@@ -56,9 +52,7 @@ export default function HomePage() {
       }
 
       if (!proxyInitialized.current) {
-        const scroller = document.documentElement;
-
-        ScrollTrigger.scrollerProxy(scroller, {
+        ScrollTrigger.scrollerProxy(document.body, {
           scrollTop(value) {
             if (arguments.length) {
               lenis.scrollTo(value, { immediate: true });
@@ -74,10 +68,10 @@ export default function HomePage() {
               height: window.innerHeight,
             };
           },
-          pinType: scroller.style.transform ? "transform" : "fixed",
+          pinType: document.body.style.transform ? "transform" : "fixed",
         });
 
-        ScrollTrigger.defaults({ scroller });
+        ScrollTrigger.defaults({ scroller: document.body });
         proxyInitialized.current = true;
       }
 
@@ -103,10 +97,7 @@ export default function HomePage() {
         cancelAnimationFrame(rafId);
       }
       cleanupLenisIntegration?.();
-      gsap.ticker.remove(tickerUpdate);
-      if (proxyInitialized.current) {
-        ScrollTrigger.defaults({ scroller: originalScroller });
-      }
+      gsap.ticker.remove(update);
     };
   }, []);
 

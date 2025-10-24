@@ -841,8 +841,7 @@ main {
 
 .section-what .horizontal__panel {
   flex: none;
-  width: 100vw;
-  min-width: 100vw;
+  width: 100%;
 }
 
 .section-what .horizontal__panel-inner {
@@ -929,7 +928,6 @@ main {
 
   .section-what .horizontal__panel {
     width: 100%;
-    min-width: 100%;
   }
 
   .section-what .horizontal__panel-inner {
